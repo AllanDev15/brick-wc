@@ -21,7 +21,7 @@
     "sass"
   ],
   "author": "Allan Atzin Flores De la Serna",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@chialab/esbuild-plugin-html": "^0.17.0",
     "@eslint/js": "^8.50.0",
