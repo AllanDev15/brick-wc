@@ -6,6 +6,10 @@
   "bin": {
     "bkwc": "bin/bricks.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AllanDev15/brick-wc"
+  },
   "scripts": {},
   "type": "module",
   "keywords": [
