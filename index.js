@@ -38,7 +38,7 @@ operations[args]();
  * Prints CLI version
  */
 function version() {
-  const packageJSON = JSON.parse(fs.readFileSync('./package.json'));
+  const packageJSON = JSON.parse(fs.readFileSync('package.json'));
   console.log(chalk.blueBright(packageJSON.version));
 }
 
@@ -53,7 +53,6 @@ async function initBuild() {
     if (!isLintingValid) {
       throw new Error('Linting has found errors, fix it before continue.');
     } else {
-      console.log(colorTertiary('   Code looks good!'));
       console.log('');
       build();
     }
@@ -71,9 +70,9 @@ async function build() {
   try {
     await esbuild.build({
       logLevel: 'warning',
-      entryPoints: ['./src/index.html'],
-      assetNames: 'assets/[name]-[hash]',
-      chunkNames: '[ext]/[name]-[hash]',
+      entryPoints: ['index.html'],
+      assetNames: 'assets/[name]',
+      chunkNames: '[ext]/[name]',
       outdir: 'build',
       bundle: true,
       minify: true,
@@ -198,6 +197,9 @@ async function lint() {
     console.log(resultText);
 
     isValid = !results.some(result => result.errorCount !== 0);
+    if (isValid) {
+      console.log(colorTertiary('   Code looks good!'));
+    }
   } catch (error) {
     console.log(colorError('Error linting the component', error));
     process.exit(1);
