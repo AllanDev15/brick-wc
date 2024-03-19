@@ -1,6 +1,7 @@
 import 'node:process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'url';
 import { networkInterfaces } from 'node:os';
 import * as esbuild from 'esbuild';
 import * as sass from 'sass';
@@ -38,7 +39,8 @@ operations[args]();
  * Prints CLI version
  */
 function version() {
-  const packageJSON = JSON.parse(fs.readFileSync('package.json'));
+  const cliPath = path.dirname(fileURLToPath(import.meta.url));
+  const packageJSON = JSON.parse(fs.readFileSync(path.join(cliPath, 'package.json'), 'utf-8'));
   console.log(chalk.blueBright(packageJSON.version));
 }
 
