@@ -1,7 +1,6 @@
 import 'node:process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'url';
 import { networkInterfaces } from 'node:os';
 import * as esbuild from 'esbuild';
 import * as sass from 'sass';
@@ -14,33 +13,33 @@ import htmlPlugin from '@chialab/esbuild-plugin-html';
 import postcss from 'postcss';
 import wdsLitCss from 'web-dev-server-plugin-lit-css';
 import { litCssPlugin } from 'esbuild-plugin-lit-css';
-
 const { FlatESLint } = eslintPkg;
 
-// Logging colors
-const colorPrimary = chalk.hex('#07AAFF');
-const colorSecondary = chalk.hex('#FFC05B');
-const colorTertiary = chalk.hex('#f14fa1');
-const colorError = chalk.redBright.bold;
-const colorSuccess = chalk.green.bold;
+import { colorPrimary, colorSecondary, colorTertiary, colorSuccess, colorError, __dirname } from './bin/commons.js';
+import scaffold from './bin/scaffold.js';
 
 const operations = {
   '--serve': serve,
   '--build': initBuild,
   '--lint': lint,
   '--version': version,
-  '-v': version
+  '-v': version,
+  '': scaffold
 };
 
 const args = process.argv[2];
-operations[args]();
+
+if (!args) {
+  scaffold();
+} else {
+  operations[args]();
+}
 
 /**
  * Prints CLI version
  */
 function version() {
-  const cliPath = path.dirname(fileURLToPath(import.meta.url));
-  const packageJSON = JSON.parse(fs.readFileSync(path.join(cliPath, 'package.json'), 'utf-8'));
+  const packageJSON = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf-8'));
   console.log(chalk.blueBright(packageJSON.version));
 }
 
