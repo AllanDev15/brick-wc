@@ -6,6 +6,12 @@ For a better visual experience use [Nerd Fonts](https://www.nerdfonts.com/) as y
 
 ---
 
+## Installation
+
+```console
+$ npm i -g bricks-wc
+```
+
 ## Commands
 
 ```console
